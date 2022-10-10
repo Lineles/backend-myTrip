@@ -47,10 +47,12 @@ app.post('/country', (request, response) => {
 // Get by ID /Country/:id
 app.get('/countrys/:id', (request, response) => {
     const params = request.params;
-    const requestetCountry = countrys.find(countrys => countrys.id === params.id)
-    console.log(requestetCountry)
-
-    response.status(200).send(requestetCountry)
+    const requestetCountry = countrys.find(countrys => countrys.id === Number(params.id)) 
+        if(!requestetCountry){
+            response.status(404).send({message: `Country with the id ${params.id} does not exist`})
+        }else{
+            response.status(200).send(requestetCountry)
+        }
 });
 
 // Update by ID /Country/:id
